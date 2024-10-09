@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GUI.MainPage">
+
+
+    <ContentPage.MenuBarItems>
+        <MenuBarItem Text="File">
+            <MenuFlyoutItem Text="New" Clicked="FileMenuNew" />
+            <MenuFlyoutItem Text="Open" Clicked="FileMenuOpenAsync" />
+            <MenuFlyoutItem Text="Save" Clicked="FileMenuSaveAsync" />
+            <MenuFlyoutItem Text="Save As" Clicked="FileMenuSaveAsAsync" />
+        </MenuBarItem>
+
+        <MenuBarItem Text="Help">
+            <MenuFlyoutSubItem Text="Help Menu">
+                <MenuFlyoutItem Text="Changing Selections" Clicked="ChangingSelectionsHelp" />
+                <MenuFlyoutItem Text="Changing Cell Contents" Clicked="ChangingCellContentsHelp" />
+                <MenuFlyoutItem Text="Saving" Clicked="SavingHelp" />
+                <MenuFlyoutItem Text="Creating New Spreadsheets" Clicked="CreatingNewSpreasheetsHelp" />
+                <MenuFlyoutItem Text="Formulas" Clicked="FormulasHelp" />
+            </MenuFlyoutSubItem>
+        </MenuBarItem>
+
+        <MenuBarItem Text="Edit">
+            <MenuFlyoutItem Text="Undo" Clicked="ClickedUndo"/>
+            <MenuFlyoutItem Text="Redo" Clicked="ClickedRedo"/>
+        </MenuBarItem>
+
+    </ContentPage.MenuBarItems>
+
+    <VerticalStackLayout x:Name="Entire">
+
+        <!-- A Place to put the currently selected cell "namd" and "value" -->
+        <Border
+            StrokeThickness="2"
+            HeightRequest="40">
+            <HorizontalStackLayout>
+                <Label x:Name="selectedCell" Text="A1"  WidthRequest="100"
+                        />
+                <Label x:Name="cellValue" Text=""  WidthRequest="100"
+                        />
+                <Entry x:Name="cellContents" Text="" WidthRequest="400"
+                       Completed="ContentsChanged" Unfocused="ContentsChanged">
+                </Entry>
+            </HorizontalStackLayout>
+        </Border>
+
+        <!-- the column headers: A, B, C, ... -->
+        <!-- Provided TopLabels...
+        <HorizontalStackLayout x:Name="TopLabels" BackgroundColor="LightBlue" TranslationX="{Binding Source={x:Reference Table}, Path=ScrollX}">
+        </HorizontalStackLayout>-->
+
+        <!-- Temp TopLabels...-->
+        <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Always">
+            <HorizontalStackLayout x:Name="TopLabels" BackgroundColor="LightBlue">
+            </HorizontalStackLayout>
+        </ScrollView>
+
+        <!-- the Grid of Spreadsheet GUI Cells -->
+        <ScrollView
+                    x:Name="Table"
+                    Orientation="Both"
+                    HorizontalOptions="FillAndExpand"
+                    HorizontalScrollBarVisibility="Always"
+                    HeightRequest="500"
+                    Scrolled="TopLabels_Scroll">
+            <HorizontalStackLayout>
+                <VerticalStackLayout x:Name="LeftLabels"  BackgroundColor="LightBlue"></VerticalStackLayout>
+                <VerticalStackLayout x:Name="Grid"        BackgroundColor="LightGoldenrodYellow"></VerticalStackLayout>
+            </HorizontalStackLayout>
+        </ScrollView>
+    </VerticalStackLayout>
+</ContentPage>
+
